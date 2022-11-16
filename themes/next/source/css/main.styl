@@ -1,0 +1,315 @@
+// CSS Style Guide: https://codeguide.co/#css
+
+
+$scheme = hexo-config('scheme') ? hexo-config('scheme') : 'Muse';
+
+
+// Variables Layer
+// --------------------------------------------------
+@import '_variables/base';
+@import '_variables/' + $scheme;
+for $inject_variable in hexo-config('injects.variable')
+  @import $inject_variable;
+
+// Mixins Layer
+// --------------------------------------------------
+@import '_mixins';
+for $inject_mixin in hexo-config('injects.mixin')
+  @import $inject_mixin;
+
+// Dark mode colors
+// --------------------------------------------------
+@import '_colors';
+
+// Common Layer
+// --------------------------------------------------
+
+// Scaffolding
+@import '_common/scaffolding';
+
+// Layout
+@import '_common/outline';
+
+// Components
+@import '_common/components';
+
+
+// Schemes Layer
+// --------------------------------------------------
+@import '_schemes/' + $scheme;
+
+
+// Custom Layer
+// --------------------------------------------------
+for $inject_style in hexo-config('injects.style')
+  @import $inject_style;
+  
+//设置背景图片
+
+body {
+  background: url(/images/background.png);  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% 50%;
+  color: var(--text-color);
+  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 1em;
+  line-height: 2;
+}
+
+// 侧边标题栏
+.header-inner {
+  border-radius: 20px 20px 20px 20px; //边框圆角
+  opacity: 0.85;
+}
+
+// 侧边头像栏
+.sidebar{
+  transition-duration: 0.4s;  
+  opacity: 0.85;  // 透明度
+  border-radius: 10px 10px 10px 10px; //边框圆角
+}
+
+//设置文章内容透明度
+.content-wrap {
+  opacity: 1;
+}
+
+
+//第一个文章
+.post-block {
+  background: var(--content-bg-color);
+  border-radius: 10px 10px 10px 10px; //边框圆角
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
+  padding: 40px;
+}
+
+//之后的所有文章
+.post-block + .post-block {
+  border-radius: 10px 10px 10px 10px; //边框圆角
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12), 0 -1px 0.5px 0 rgba(0,0,0,0.09);
+  margin-top: 12px;
+}
+
+/* 侧边栏图标格式设置 */
+.bilibili {
+  background-image: url('/images/bilibili.svg');
+  background-size: 1em 1em;
+  opacity: 0.55;
+  background-position: 0.05rem 0.2rem;
+  background-repeat: no-repeat;
+  height: 1rem;
+  width: 1rem; 
+  border-radius: 0rem;
+  /*鼠标停留在图标上时，图标呈现发光效果*/
+  &:hover {
+      opacity: 1;
+    }
+}
+.photos {
+  background-image: url('/images/xiangce.svg');
+  background-size: 1em 1em;
+  opacity: 0.55;
+  background-position: 0.05rem 0.2rem;
+  background-repeat: no-repeat;
+  height: 1rem;
+  width: 1rem; 
+  border-radius: 0rem;
+  /*鼠标停留在图标上时，图标呈现发光效果*/
+  &:hover {
+      opacity: 1;
+    }
+}
+/*相册*/
+.photos-page {
+	margin-top: -50px;
+}
+
+.img-list{
+	display: flex;
+	flex-direction: column;//垂直为主轴
+}
+.photos-list {
+	display: flex;//指定容器
+	flex-direction: row;//水平为主轴
+	flex-wrap: nowrap;//不自动换行
+	justify-content: space-between;//两侧对其
+	align-items: flex-start;//水平对齐
+}
+.img-column {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-start
+}
+.img-column a,
+.photos-column a {
+	border-bottom: 0px;
+}
+.photos-item {
+	margin-bottom: -50px
+}
+.photos-item p {
+	margin: -25px auto -10px;
+	max-width: 50%;
+	text-align: center;
+	font-size: 15px;
+	color: $black-deep;
+	background: rgba(255,255,255,.3);
+	border-radius: 7px;
+	border: 1px solid $black-deep;
+	box-shadow: 0 8px 20px -8px rgba(0,0,0,.3);
+}
+.posts-expand .post-body .photos-column a img {
+	height: 250px;
+	width: 300px;
+	object-fit: cover;
+}
+.img-column a img {
+	height: 280px;
+	width: 330px;
+	object-fit: scale-down;
+}
+/*两张图片*/
+.img2-column {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-start
+}
+.img2-column a img {
+	height: 400px;
+	width: 500px;
+	object-fit: scale-down;
+}
+/*一张图片*/
+.img1-column {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-start
+}
+
+
+@media (max-width: 767px){
+	.photos-item p {
+		min-width: 75px;
+		font-size: 13px;
+	}
+}
+/* 归档页样式 began */
+.page-archive .archive-page-counter {
+  font-size: 18px;
+  background-color: #49b1f5;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+  color: #fff;
+  +mobile() {
+    font-size: 16px;
+  }
+}
+.my-post-time{
+  font-size: 11px;
+  position: absolute;
+  color: #fff;
+  background-color: #49b1f5;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 15px;
+}
+.mypost{
+  position: relative;
+  margin-bottom: 1rem;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+a.my-post-title-link:before{
+  top: 10px;
+  width: 18px;
+  height: 18px;
+  content: "📚";
+  margin-right: 5px;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 15px;
+  line-height: 18px;
+}
+.my-post:hover{
+  transform: scale(1.1);
+  box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);
+  border-radius: 30px;
+  width: 400px;
+  padding: 1px 10px;
+  margin-left: 25px;
+  font-size: 16px;
+  transition-duration: 0.15s;
+  +mobile(){
+    width: 260px;
+    margin-left: 18px;
+  }
+  //display:flex;
+}
+a.my-post-title-link{
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 400;
+  +mobile() {
+    font-size: 14px;
+  }
+}
+.my-post-title{
+  display: block;
+  margin-left: 4.5rem;
+  color: #4c4948;
+  text-decoration: none;
+  font-size: .8rem;
+  cursor: pointer;
+  +mobile() {
+    //margin-left: 4rem;
+  }
+}
+.my-post-header{
+  position: top;
+  margin-bottom: 1rem;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+//.my-post-title-link{
+//  font-size: 16px;
+//  font-weight: 500;
+//}
+.my-post-meta{
+  position: absolute;
+  color: #99a9bf;
+  width: 80px;
+  color: #114142;
+}
+div.post-block.tag .collection-title h2 {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #3f3f3f;
+  border-radius: 20px;
+  font-size: 22px;
+  background-color: #b4e8fa;
+  padding: 2px 15px;
+  letter-spacing: 1.5px;
+  box-sizing: border-box;
+  color: #3f3f3f;
+  display: inline-block;
+  margin: 10px 0 10px;
+  text-align: center;
+  +mobile(){
+    font-size: 18px;
+  }
+}
+/* 归档页样式 end */
